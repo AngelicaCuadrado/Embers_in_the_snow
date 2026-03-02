@@ -1,16 +1,41 @@
+using Unity.VRTemplate;
 using UnityEngine;
 
-public class Log : MonoBehaviour
+public class Log : MonoBehaviour, IBaggable, IPoolable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float weight = 12f;
+    [SerializeField,Tooltip("The unique key for this object in the pool")] private string poolKey = "Log";
+    public string PoolKey { get => poolKey; set => poolKey = value; }
 
-    // Update is called once per frame
-    void Update()
+    [Header("Firewood Spawn Settings")]
+    [SerializeField] private string firewoodPoolKey = "Firewood";
+    [SerializeField] private float spawnRadius = 0.1f;
+
+    public float GetWeight() => weight;
+    public string GetPoolKey() => PoolKey;
+
+    public void OnCreatedPool() { }
+    public void OnSpawnFromPool() { }
+    public void OnReturnToPool() { }
+
+    public void Split()
     {
-        
+        Vector3 center = transform.position;
+        Quaternion baseRot = transform.rotation;
+
+        // Spawn 4 firewood pieces at 90° intervals
+        for (int i = 0; i < 4; i++)
+        {
+            float angle = i * 90f;
+            Quaternion rot = baseRot * Quaternion.Euler(0, angle, 0);
+
+            Vector3 offset = rot * Vector3.forward * spawnRadius;
+            Vector3 spawnPos = center + offset;
+
+            ItemManager.Instance.Spawn(firewoodPoolKey, spawnPos, rot);
+        }
+
+        // Return the log to the pool
+        ItemManager.Instance.ReturnToPool(gameObject, PoolKey);
     }
 }

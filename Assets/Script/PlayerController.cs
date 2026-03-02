@@ -2,15 +2,32 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static PlayerController Instance { get; private set; }
+
+    [Header("Light Tracking")]
+    [SerializeField,Tooltip("")] private int LightSources = 0;
+
+    private void Awake()
     {
-        
+        // Singleton pattern
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddLightSource()
     {
-        
+        LightSources++;
+        Debug.Log("LightSources: " + LightSources);
+    }
+
+    public void RemoveLightSource()
+    {
+        LightSources = Mathf.Max(0, LightSources - 1);
+        Debug.Log("LightSources: " + LightSources);
     }
 }

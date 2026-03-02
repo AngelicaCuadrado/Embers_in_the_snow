@@ -10,17 +10,18 @@ public class Bonfire : MonoBehaviour
     [SerializeField, Tooltip("")] private PlayerController player;
     [SerializeField, Tooltip("")] private Light bonfireLight;
     [SerializeField, Tooltip("")] private SphereCollider lightTrigger;
+    [SerializeField, Tooltip("")] private Collider physicalCollider;
     [SerializeField, Tooltip("")] private GameObject torchPrefab;
 
     private void Start()
     {
         UpdateLightRadius();
-        //Torch.OnTorchPutOut += SpawnTorch;
+        Torch.OnTorchPutOut += SpawnTorch;
     }
 
     private void OnDestroy()
     {
-        //Torch.OnTorchPutOut -= SpawnTorch;
+        Torch.OnTorchPutOut -= SpawnTorch;
     }
 
     private void Update()
@@ -46,6 +47,12 @@ public class Bonfire : MonoBehaviour
         UpdateLightRadius();
     }
 
+    public void RemoveFuel(float amount)
+    {
+        fuelAmount -= amount;
+        UpdateLightRadius();
+    }
+
     private void UpdateLightRadius()
     {
         // Light radius scales with fuel amount
@@ -63,7 +70,7 @@ public class Bonfire : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //if (player != null) player.AddLightSource();
+            if (player != null) player.AddLightSource();
         }
     }
 
@@ -71,7 +78,7 @@ public class Bonfire : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //if (player != null) player.RemoveLightSource();
+            if (player != null) player.RemoveLightSource();
         }
     }
 }

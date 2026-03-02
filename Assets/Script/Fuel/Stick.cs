@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class Stick : MonoBehaviour
+public class Stick : FuelItem
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Reset()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        weight = 1f;
+        fuelValue = 10f;
     }
 }

@@ -1,16 +1,4 @@
-using UnityEngine;
-
-public class IBurnable : MonoBehaviour
+public interface IBurnable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    float GetFuelValue();
 }
