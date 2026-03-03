@@ -1,5 +1,6 @@
 public interface IBaggable
 {
-    float GetWeight();
-    string GetPoolKey();
+    float Weight { get; }
+    string PoolKey { get; }
+    bool IsHeld { get; set; }
 }

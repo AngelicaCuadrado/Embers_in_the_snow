@@ -1,26 +1,51 @@
 using UnityEngine;
 using System;
 
-public class Torch : MonoBehaviour, IBurnable
+public class Torch : MonoBehaviour, IBurnable, IPoolable
 {
     [Header("Torch Settings")]
-    [SerializeField, Tooltip("")] private float fuelAmount = 50f;
-    [SerializeField, Tooltip("")] private float lightRadius = 3f;
-    [SerializeField, Tooltip("")] private float burnRate = 1f;
+    [SerializeField] private float maxFuel = 50f;
+    [SerializeField] private float burnRate = 1f;
+    [SerializeField] private float lightRadius = 3f;
 
     [Header("References")]
-    [SerializeField, Tooltip("")] private Light torchLight;
-    [SerializeField, Tooltip("")] private SphereCollider lightTrigger;
-    [SerializeField, Tooltip("")] private Collider physicalCollider;
+    [SerializeField] private Light torchLight;
+    [SerializeField] private SphereCollider lightTrigger;
+    [SerializeField] private Collider physicalCollider;
 
-    public static event Action OnTorchPutOut;
+    [SerializeField, Tooltip("The unique key for this object in the pool")] private string poolKey = "Torch";
 
+    private float fuelAmount;
     private bool isActive = false;
     private bool isHeld = false;
 
-    private void Start()
+    // Events
+    public static event Action OnTorchPutOut;
+
+    // Properties
+    public float FuelValue => fuelAmount;
+    public string PoolKey { get => poolKey; set => poolKey = value; }
+
+    public void OnCreatedPool() { }
+
+    public void OnSpawnFromPool()
     {
-        UpdateLightRadius();
+        fuelAmount = maxFuel;
+        isActive = false;
+        isHeld = false;
+
+        torchLight.enabled = false;
+        lightTrigger.enabled = false;
+    }
+
+    public void OnReturnToPool()
+    {
+        // Reset state when returned
+        isActive = false;
+        isHeld = false;
+
+        torchLight.enabled = false;
+        lightTrigger.enabled = false;
     }
 
     private void Update()
@@ -44,11 +69,18 @@ public class Torch : MonoBehaviour, IBurnable
 
     public void PickUp(Bonfire bonfire)
     {
-        if (isHeld || !isActive) return;
+        if (isHeld || isActive) return;
 
         isHeld = true;
         isActive = true;
-        bonfire.RemoveFuel(fuelAmount);
+
+        torchLight.enabled = true;
+        lightTrigger.enabled = true;
+
+        UpdateLightRadius();
+
+        // Taking a torch removes fuel from the bonfire
+        bonfire.RemoveFuel(maxFuel);
     }
 
     public void Drop()
@@ -61,12 +93,10 @@ public class Torch : MonoBehaviour, IBurnable
         isActive = false;
         torchLight.enabled = false;
         lightTrigger.enabled = false;
-        OnTorchPutOut?.Invoke();
-    }
 
-    public float GetFuelValue()
-    {
-        return fuelAmount;
+        OnTorchPutOut?.Invoke();
+
+        ItemManager.Instance.ReturnToPool(gameObject, PoolKey);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -75,8 +105,7 @@ public class Torch : MonoBehaviour, IBurnable
 
         if (other.CompareTag("Player"))
         {
-            PlayerController player = other.GetComponent<PlayerController>();
-            if (player != null) player.AddLightSource();
+            PlayerController.Instance.AddLightSource();
         }
     }
 
@@ -86,8 +115,7 @@ public class Torch : MonoBehaviour, IBurnable
 
         if (other.CompareTag("Player"))
         {
-            PlayerController player = other.GetComponent<PlayerController>();
-            if (player != null) player.RemoveLightSource();
+            PlayerController.Instance.RemoveLightSource();
         }
     }
 
@@ -95,20 +123,23 @@ public class Torch : MonoBehaviour, IBurnable
     {
         if (!isActive) return;
 
+        // Returned to bonfire
         if (collision.collider.CompareTag("Bonfire"))
         {
-            Bonfire bonfire = collision.collider.GetComponent<Bonfire>();
-            if (bonfire != null)
+            if (collision.collider.TryGetComponent<Bonfire>(out var bonfire))
             {
                 bonfire.AddFuel(fuelAmount);
-                PutOut();
-                Destroy(gameObject);
             }
+
+            PutOut();
         }
+
+        // Dropped in snow
         else if (collision.collider.CompareTag("Ground"))
         {
             PutOut();
-            Destroy(gameObject);
         }
     }
+
+    public float GetFuelValue() => fuelAmount;
 }

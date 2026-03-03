@@ -81,4 +81,14 @@ public class Bonfire : MonoBehaviour
             if (player != null) player.RemoveLightSource();
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        // Visualize light radius in editor
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.3f);
+        Gizmos.DrawSphere(transform.position, lightRadius);
+        // Draw wireframe for light
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.8f);
+        Gizmos.DrawWireSphere(transform.position, lightRadius);
+    }
 }

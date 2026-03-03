@@ -22,12 +22,12 @@ public class PlayerController : MonoBehaviour
     public void AddLightSource()
     {
         LightSources++;
-        Debug.Log("LightSources: " + LightSources);
+        //Debug.Log("LightSources: " + LightSources);
     }
 
     public void RemoveLightSource()
     {
         LightSources = Mathf.Max(0, LightSources - 1);
-        Debug.Log("LightSources: " + LightSources);
+        //Debug.Log("LightSources: " + LightSources);
     }
 }

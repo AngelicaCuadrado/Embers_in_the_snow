@@ -1,4 +1,4 @@
 public interface IBurnable
 {
-    float GetFuelValue();
+    float FuelValue { get; }
 }

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
-using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class Bag : MonoBehaviour
@@ -12,44 +11,50 @@ public class Bag : MonoBehaviour
     private float currentWeight = 0f;
 
     [Header("References")]
-    [SerializeField, Tooltip("")] private ObjectPooler objectPooler;
     [SerializeField, Tooltip("")] private Transform itemSpawnPoint;
 
     private Queue<IBaggable> items = new Queue<IBaggable>();
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the object is baggable
-        if (other.TryGetComponent<IBaggable>(out var baggable))
+        if (!other.TryGetComponent<IBaggable>(out var baggable))
+            return;
+
+        // Ignore items currently held
+        if (baggable.IsHeld)
+            return;
+
+        float weight = baggable.Weight;
+
+        // Ignore if adding this item exceeds max weight
+        if (currentWeight + weight > maxWeight)
+            return;
+
+        items.Enqueue(baggable);
+        currentWeight += weight;
+
+        var poolable = other.GetComponent<IPoolable>();
+        if (poolable != null)
         {
-            float weight = baggable.GetWeight();
-
-            // If bag is full, ignore
-            if (currentWeight + weight > maxWeight)
-                return;
-
-            // Add to bag
-            items.Enqueue(baggable);
-            currentWeight += weight;
-
-            // Return object to pool
-            var poolable = other.GetComponent<IPoolable>();
-            if (poolable != null)
-            {
-                objectPooler.ReturnToPool(other.gameObject, poolable.PoolKey);
-            }
+            ItemManager.Instance.ReturnToPool(other.gameObject, poolable.PoolKey);
         }
     }
+
     public void Interact(XRBaseInteractor interactor)
     {
         if (items.Count == 0)
             return;
 
         IBaggable baggable = items.Dequeue();
-        currentWeight -= baggable.GetWeight();
+        currentWeight -= baggable.Weight;
 
-        string key = baggable.GetPoolKey();
+        string key = baggable.PoolKey;
         GameObject obj = ItemManager.Instance.Spawn(key, itemSpawnPoint.position, itemSpawnPoint.rotation);
+
+        if (obj.TryGetComponent<IBaggable>(out var newItem))
+        {
+            newItem.IsHeld = true;
+        }
 
         if (obj.TryGetComponent<XRGrabInteractable>(out var grab))
         {
@@ -62,5 +67,12 @@ public class Bag : MonoBehaviour
                 interactor.interactionManager.SelectEnter(selectInteractor, selectInteractable);
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Draw a wire sphere to visualize the spawning area
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(itemSpawnPoint.position, 0.2f);
     }
 }

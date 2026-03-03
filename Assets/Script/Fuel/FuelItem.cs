@@ -3,14 +3,16 @@ using UnityEngine;
 public abstract class FuelItem : MonoBehaviour, IBaggable, IBurnable, IPoolable
 {
     [Header("Fuel Settings")]
-    [SerializeField] protected float weight = 1f;
-    [SerializeField] protected float fuelValue = 1f;
+    [SerializeField, Tooltip("")] protected float weight = 1f;
+    [SerializeField, Tooltip("")] protected float fuelValue = 1f;
+    [SerializeField, Tooltip("")] protected string poolKey;
+    [SerializeField, Tooltip("")] protected bool isHeld = false;
 
-    public string PoolKey { get; set; }
-
-    public float GetWeight() => weight;
-    public float GetFuelValue() => fuelValue;
-    public string GetPoolKey() => PoolKey;
+    // Properties
+    public float Weight => weight;
+    public float FuelValue => fuelValue;
+    public string PoolKey { get => poolKey; set => poolKey = value; }
+    public bool IsHeld { get => isHeld; set => isHeld = value; }
 
     public virtual void OnCreatedPool() { }
     public virtual void OnSpawnFromPool() { }
@@ -20,16 +22,14 @@ public abstract class FuelItem : MonoBehaviour, IBaggable, IBurnable, IPoolable
     {
         if (!collision.collider.CompareTag("Bonfire")) return;
 
-        if (collision.collider.TryGetComponent<Bonfire>(out var bonfire))
+        Bonfire bonfire = collision.collider.GetComponentInParent<Bonfire>();
+        if (bonfire != null)
         {
+            // Add fuel to bonfire
             bonfire.AddFuel(fuelValue);
-            ReturnToPool();
-        }
-    }
 
-    protected void ReturnToPool()
-    {
-        var pooler = FindAnyObjectByType<ObjectPooler>();
-        pooler.ReturnToPool(gameObject, PoolKey);
+            // Return to pool
+            ItemManager.Instance.ReturnToPool(gameObject, PoolKey);
+        }
     }
 }
