@@ -59,13 +59,13 @@ public class GameManager : MonoBehaviour
     public void Losegame()
     {
         Debug.Log("Game Over! You froze to death.");
-        // Here you can add more game over logic, like showing a UI or restarting the scene.
+        SceneManager.LoadScene("Lose_menu");
         PauseGame();
     }
     public void WinGame()
     {
         Debug.Log("Congratulations! You survived the night.");
-        // Here you can add more win logic, like showing a UI or transitioning to a new scene.
+        SceneManager.LoadScene("Win_menu");
         PauseGame();
     }
     public void Main_Menu()
