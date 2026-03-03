@@ -1,16 +1,56 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static GameManager Instance { get; private set; }
+
+    private float gameTimer = 0f;
+    private bool gamePaused = false;
+
+    private void Awake()
     {
-        
+        // Singleton pattern
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PauseGame()
     {
-        
+        gamePaused = true;
+        Time.timeScale = 0f; // Pause the game
+        Debug.Log("Game Paused.");
+    }
+    public void ResumeGame()
+    {
+        if (gamePaused)
+        {
+            gamePaused = false;
+            Time.timeScale = 1f; // Resume the game
+            Debug.Log("Game Resumed.");
+        }
+    }
+
+    public void Losegame()
+    {
+        Debug.Log("Game Over! You froze to death.");
+        // Here you can add more game over logic, like showing a UI or restarting the scene.
+        PauseGame();
+    }
+    public void WinGame()
+    {
+        Debug.Log("Congratulations! You survived the night.");
+        // Here you can add more win logic, like showing a UI or transitioning to a new scene.
+        PauseGame();
+    }
+    public void ChangeScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }

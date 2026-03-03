@@ -9,6 +9,7 @@ public class PlayerTemperature : MonoBehaviour
     [Header("Temperature Settings")]
     public float freezeSpeed = 0.15f;
     public float thawSpeed = 0.4f;
+    [SerializeField, Tooltip("")] private float maxFrostThreshold = 5f;
 
     private float _currentFrostLevel = 0f;
 
@@ -25,6 +26,10 @@ public class PlayerTemperature : MonoBehaviour
         else
         {
             _currentFrostLevel += freezeSpeed * Time.deltaTime; // Freeze
+            if (_currentFrostLevel >= maxFrostThreshold)
+            {
+                GameManager.Instance.Losegame();
+            }
         }
 
         _currentFrostLevel = Mathf.Clamp01(_currentFrostLevel);
