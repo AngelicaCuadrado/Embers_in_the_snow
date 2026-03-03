@@ -3,6 +3,8 @@ using UnityEngine;
 public class Axe : MonoBehaviour
 {
     [SerializeField, Tooltip("")] private string poolKey = "Axe";
+    [SerializeField, Tooltip("")] private AudioClip soundEffect;
+
 
     public string PoolKey { get => poolKey; set => poolKey = value; }
 
@@ -11,6 +13,7 @@ public class Axe : MonoBehaviour
         if (collision.collider.GetComponentInParent<Log>() is Log log)
         {
             log.Split();
+            AudioSource.PlayClipAtPoint(soundEffect, transform.position);
         }
     }
 }
