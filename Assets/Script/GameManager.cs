@@ -1,12 +1,19 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+/// <summary>
+/// Manages the overall game state, including game flow control, win and loss conditions, and scene transitions.
+/// </summary>
+/// <remarks>GameManager implements a singleton pattern to ensure only one instance exists during gameplay. It
+/// provides methods to pause, resume, and control the progression of the game, as well as to handle transitions between
+/// scenes such as starting the game, returning to the main menu, or quitting the application. This class should be
+/// attached to a persistent GameObject in the scene to maintain game state across scene loads.</remarks>
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    private float gameTimer = 0f;
-    private bool gamePaused = false;
+    [SerializeField, Tooltip("Current elapsed time of the game.")] private float gameTimer = 0f;
+    [SerializeField, Tooltip("Total duration of the game in seconds.")] private float gameDuration = 300f;
+    [SerializeField, Tooltip("Indicates whether the game is currently paused.")] private bool gamePaused = false;
 
     private void Awake()
     {
@@ -19,6 +26,18 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
 
+    }
+
+    private void Update()
+    {
+        if (!gamePaused)
+        {
+            gameTimer += Time.deltaTime;
+            if (gameTimer >= gameDuration)
+            {
+                WinGame();
+            }
+        }
     }
 
     public void PauseGame()
