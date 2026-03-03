@@ -21,6 +21,7 @@ public class Bonfire : MonoBehaviour
     private void Start()
     {
         UpdateLightRadius();
+        SpawnTorch();
         Torch.OnTorchPutOut += SpawnTorch;
     }
 
@@ -56,6 +57,7 @@ public class Bonfire : MonoBehaviour
     public void RemoveFuel(float amount)
     {
         fuelAmount -= amount;
+        campfireController.RemoveFuel(amount);
         UpdateLightRadius();
     }
 

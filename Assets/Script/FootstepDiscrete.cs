@@ -1,17 +1,15 @@
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class FootstepDiscrete : MonoBehaviour
+public class FootstepLoop : MonoBehaviour
 {
     [SerializeField] private Transform xrOrigin; // XR Origin or camera
-    [SerializeField] private AudioClip[] footstepClips;
-    [SerializeField] private float baseStride = 0.7f; // meters per step at normal speed
-    [SerializeField] private float minSpeedThreshold = 0.05f;
-    [SerializeField] private float pitchRange = 0.1f;
+    [SerializeField] private float speedThreshold = 0.05f;
+    [SerializeField] private float stopDelay = 0.15f;
 
     private AudioSource audioSource;
     private Vector3 lastPos;
-    private float distanceAccumulator;
+    private float stoppedTimer;
 
     private void Awake()
     {
@@ -23,31 +21,25 @@ public class FootstepDiscrete : MonoBehaviour
     private void Update()
     {
         Vector3 delta = xrOrigin.position - lastPos;
-        float moved = delta.magnitude;
+        float speed = delta.magnitude / Time.deltaTime;
         lastPos = xrOrigin.position;
 
-        // accumulate distance walked
-        distanceAccumulator += moved;
-
-        // compute dynamic stride based on speed (shorter stride when slow)
-        float speed = moved / Time.deltaTime;
-        if (speed < minSpeedThreshold) return;
-
-        float stride = Mathf.Lerp(baseStride * 0.5f, baseStride * 1.2f, Mathf.Clamp01(speed / 2f));
-
-        if (distanceAccumulator >= stride)
+        if (speed > speedThreshold)
         {
-            PlayFootstep();
-            distanceAccumulator = 0f;
+            stoppedTimer = 0f;
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+            audioSource.volume = Mathf.Clamp01(speed / 2f); // scale volume by speed
         }
-    }
-
-    private void PlayFootstep()
-    {
-        if (footstepClips == null || footstepClips.Length == 0) return;
-
-        AudioClip clip = footstepClips[Random.Range(0, footstepClips.Length)];
-        audioSource.pitch = 1f + Random.Range(-pitchRange, pitchRange);
-        audioSource.PlayOneShot(clip, 1f);
+        else
+        {
+            stoppedTimer += Time.deltaTime;
+            if (stoppedTimer >= stopDelay && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+        }
     }
 }

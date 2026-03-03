@@ -80,4 +80,12 @@ public class CampfireController : MonoBehaviour
             _isBurning = true;
         }
     }
+
+    public void RemoveFuel(float amount) {
+        currentFuel = Mathf.Clamp(currentFuel - amount, 0f, maxFuel);
+        if (currentFuel <= 0)
+        {
+            ExtinguishFire();
+        }
+    }
 }

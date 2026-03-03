@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Axe
   poolKey: Axe
+  soundEffect: {fileID: 8300000, guid: f8491a6b6cdfe9847bfaaf21d2f83ceb, type: 3}
 --- !u!114 &9167703025099686
 MonoBehaviour:
   m_ObjectHideFlags: 0
