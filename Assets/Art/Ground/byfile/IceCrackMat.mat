@@ -29,14 +29,20 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CrackPower: 2.15
-    - _CrackThreshold: 0.739
-    - _Metallic: 0.518
-    - _PulseMin: 0.917
-    - _PulseSpeed: 4.72
-    - _Smoothness: 0.33
+    - _CrackAlbedoStrength: 1.29
+    - _CrackPower: 1.95
+    - _CrackSmoothness: 0.462
+    - _CrackSmoothnessBlend: 0.67
+    - _CrackThreshold: 0.41
+    - _GlowStrength: 0.67
+    - _Metallic: 0.536
+    - _PulseMin: 0.887
+    - _PulseSpeed: 3.5
+    - _Smoothness: 0.699
     m_Colors:
     - _BaseColor: {r: 0.88309896, g: 0.9673478, b: 0.990566, a: 1}
+    - _CrackColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 2, b: 2, a: 1}
+    - _IceColor: {r: 0.14999998, g: 0.45, b: 0.85, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

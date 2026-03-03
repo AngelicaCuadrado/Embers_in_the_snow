@@ -51,20 +51,20 @@ Material:
     m_Ints: []
     m_Floats:
     - _Glossiness: 0.5
-    - _LOD: 1000
-    - _Learp: 0.682
-    - _Offset: 3
+    - _LOD: 3000
+    - _Learp: 0
+    - _Offset: 9
     - _QueueControl: 0
     - _QueueOffset: -31
     - _Sample: 60
-    - _Saturation: 1.613
-    - _Smooth: 0.656
+    - _Saturation: 2
+    - _Smooth: 0
     - _SparkleCutoff: 0.5
     - _SparkleScale: 50
     - _Specular: 1
     - _TextureScale: 1
     m_Colors:
-    - _Color: {r: 0.5503144, g: 1, b: 0.9369889, a: 1}
+    - _Color: {r: 0.6320754, g: 1, b: 0.9488105, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _Tiling: {r: 70, g: 70, b: 0, a: 0}
   m_BuildTextureStacks: []
