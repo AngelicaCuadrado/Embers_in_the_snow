@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     public void WinGame()
     {
         Debug.Log("Congratulations! You survived the night.");
-        // Here you can add more win logic, like showing a UI or transitioning to a new scene.
+        SceneManager.LoadScene("Win_menu");
         PauseGame();
     }
     public void Main_Menu()
