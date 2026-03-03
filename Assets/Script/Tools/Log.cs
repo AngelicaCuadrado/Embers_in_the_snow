@@ -32,7 +32,8 @@ public class Log : MonoBehaviour, IBaggable, IPoolable
             Quaternion rot = baseRot * Quaternion.Euler(0, angle, 0);
 
             Vector3 offset = rot * Vector3.forward * spawnRadius;
-            Vector3 spawnPos = center + offset;
+            Vector3 upwardOffset = Vector3.up * 0.05f;
+            Vector3 spawnPos = center + offset + upwardOffset;
 
             ItemManager.Instance.Spawn(firewoodPoolKey, spawnPos, rot);
         }

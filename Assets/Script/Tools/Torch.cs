@@ -12,10 +12,13 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
     [SerializeField] private Light torchLight;
     [SerializeField] private SphereCollider lightTrigger;
     [SerializeField] private Collider physicalCollider;
+    [SerializeField] private Bonfire bonfire;
+    [SerializeField] private Rigidbody rb;
+
 
     [SerializeField, Tooltip("The unique key for this object in the pool")] private string poolKey = "Torch";
 
-    private float fuelAmount;
+    [SerializeField] private float fuelAmount;
     private bool isActive = false;
     private bool isHeld = false;
 
@@ -25,6 +28,7 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
     // Properties
     public float FuelValue => fuelAmount;
     public string PoolKey { get => poolKey; set => poolKey = value; }
+    public Bonfire Bonfire { get => bonfire; set => bonfire = value; }
 
     public void OnCreatedPool() { }
 
@@ -36,6 +40,10 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
 
         torchLight.enabled = false;
         lightTrigger.enabled = false;
+
+        // Freeze physics so it stays suspended
+        rb.isKinematic = true;
+        rb.useGravity = false;
     }
 
     public void OnReturnToPool()
@@ -54,8 +62,11 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
 
         fuelAmount -= burnRate * Time.deltaTime;
 
+        UpdateLightRadius();
+
         if (fuelAmount <= 0f)
         {
+            print("Torch ran out of fuel");
             fuelAmount = 0f;
             PutOut();
         }
@@ -63,11 +74,13 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
 
     private void UpdateLightRadius()
     {
-        torchLight.range = lightRadius;
-        lightTrigger.radius = lightRadius;
+        float fuelPercent = Mathf.Clamp01(fuelAmount / maxFuel);
+        float currentRadius = lightRadius * fuelPercent;
+        torchLight.range = currentRadius;
+        lightTrigger.radius = currentRadius;
     }
 
-    public void PickUp(Bonfire bonfire)
+    public void PickUp()
     {
         if (isHeld || isActive) return;
 
@@ -79,17 +92,25 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
 
         UpdateLightRadius();
 
-        // Taking a torch removes fuel from the bonfire
+        // Re-enable physics so it behaves normally after pickup
+        rb.isKinematic = false;
+        rb.useGravity = true;
+
+        // Remove fuel from bonfire when picked up
         bonfire.RemoveFuel(maxFuel);
     }
+
 
     public void Drop()
     {
         isHeld = false;
+        rb.isKinematic = false;
+        rb.useGravity = true;
     }
 
     private void PutOut()
     {
+        print("Torch put out");
         isActive = false;
         torchLight.enabled = false;
         lightTrigger.enabled = false;
@@ -121,7 +142,9 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!isActive) return;
+        print("Torch collided with: " + collision.collider.name);
+        if (!isActive || isHeld) return;
+        print("Torch is active and not held, processing collision");
 
         // Returned to bonfire
         if (collision.collider.CompareTag("Bonfire"))
@@ -141,5 +164,4 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
         }
     }
 
-    public float GetFuelValue() => fuelAmount;
 }

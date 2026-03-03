@@ -19714,7 +19714,10 @@ MonoBehaviour:
   torchLight: {fileID: 2427100897806904188}
   lightTrigger: {fileID: 4072508846036598725}
   physicalCollider: {fileID: 1302742179687610778}
+  bonfire: {fileID: 0}
+  rb: {fileID: 7862878899135683700}
   poolKey: Torch
+  fuelAmount: 50
 --- !u!54 &7862878899135683700
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19789,10 +19792,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4190057024753065678}
+        m_TargetAssemblyTypeName: Torch, Assembly-CSharp
+        m_MethodName: PickUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4190057024753065678}
+        m_TargetAssemblyTypeName: Torch, Assembly-CSharp
+        m_MethodName: Drop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []

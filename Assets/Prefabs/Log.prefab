@@ -106,7 +106,7 @@ MonoBehaviour:
   isHeld: 0
   poolKey: Log
   firewoodPoolKey: Firewood
-  spawnRadius: 0.1
+  spawnRadius: 0.2
 --- !u!54 &5873591686930438683
 Rigidbody:
   m_ObjectHideFlags: 0

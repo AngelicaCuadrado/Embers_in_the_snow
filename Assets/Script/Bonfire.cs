@@ -56,14 +56,20 @@ public class Bonfire : MonoBehaviour
     private void UpdateLightRadius()
     {
         // Light radius scales with fuel amount
-        lightRadius = Mathf.Clamp(fuelAmount * 0.05f, 2f, 10f);
+        lightRadius = Mathf.Clamp(fuelAmount * 0.05f, 0f, 10f);
         bonfireLight.range = lightRadius;
         lightTrigger.radius = lightRadius;
     }
 
     public void SpawnTorch()
     {
-        Instantiate(torchPrefab, transform.position + Vector3.up * 1.5f, Quaternion.identity);
+        print("Spawning torch from bonfire");
+        GameObject torch = Instantiate(torchPrefab, transform.position + Vector3.up * 1.5f, Quaternion.identity);
+        if (torch.TryGetComponent<Torch>(out var torchComponent))
+        {
+            torchComponent.Bonfire = this;
+            torchComponent.OnSpawnFromPool();
+        }
     }
 
     private void OnTriggerEnter(Collider other)

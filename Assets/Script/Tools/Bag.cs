@@ -17,8 +17,9 @@ public class Bag : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.TryGetComponent<IBaggable>(out var baggable))
-            return;
+        // Get the IBaggable component from the collided object or its parent
+        IBaggable baggable = other.GetComponent<IBaggable>() ?? other.GetComponentInParent<IBaggable>();
+        if (baggable == null) return;
 
         // Ignore items currently held
         if (baggable.IsHeld)

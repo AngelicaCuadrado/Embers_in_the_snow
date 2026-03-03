@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &63377776069822853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1577895551356966504}
+  - component: {fileID: 6803683843054725057}
+  - component: {fileID: 6842124661433941952}
+  m_Layer: 0
+  m_Name: ItemManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1577895551356966504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63377776069822853}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.28525, y: 1.37195, z: 0.41844}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6803683843054725057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63377776069822853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85bc627b01a65445959472a04b384e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemManager
+  objectPooler: {fileID: 6842124661433941952}
+--- !u!114 &6842124661433941952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63377776069822853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40eed27999672444c9e38bd0d1d4e452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPooler
+  poolRoot: {fileID: 0}
+  pools:
+  - key: Firewood
+    prefab: {fileID: 6364998946265497791, guid: 32005e7dd03778b48bf6de1a4b95bca8, type: 3}
+    initialSize: 4
+    isExpandable: 1
+  - key: Log
+    prefab: {fileID: 4994824752035075271, guid: 1abeb2c7f1b3a9e41a77d82cec20d259, type: 3}
+    initialSize: 4
+    isExpandable: 1
+  - key: Stick
+    prefab: {fileID: 4052724099090640625, guid: 43977f60ae732f548a6d6a55b5bea613, type: 3}
+    initialSize: 4
+    isExpandable: 1
+  - key: Torch
+    prefab: {fileID: 7842238887061591019, guid: fee75534437446644b9df4bc0fc07e48, type: 3}
+    initialSize: 4
+    isExpandable: 1
+  - key: Axe
+    prefab: {fileID: 714779620016117624, guid: 71abee8d3a6828242b9f85c39d903b7d, type: 3}
+    initialSize: 4
+    isExpandable: 1
