@@ -49,8 +49,19 @@ public class GameManager : MonoBehaviour
         // Here you can add more win logic, like showing a UI or transitioning to a new scene.
         PauseGame();
     }
-    public void ChangeScene(string sceneName)
+    public void Main_Menu()
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene("Main_Menu");
+    }
+
+    public void Play()
+    {
+        SceneManager.LoadScene("Level1");
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quitting the game...");
+        Application.Quit();
     }
 }
