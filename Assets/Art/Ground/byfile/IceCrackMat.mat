@@ -36,7 +36,7 @@ Material:
     - _PulseSpeed: 4.72
     - _Smoothness: 0.33
     m_Colors:
-    - _BaseColor: {r: 0.054388523, g: 0.55325097, b: 0.69182384, a: 1}
+    - _BaseColor: {r: 0.88309896, g: 0.9673478, b: 0.990566, a: 1}
     - _EmissionColor: {r: 0, g: 2, b: 2, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
