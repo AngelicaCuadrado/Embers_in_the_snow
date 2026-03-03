@@ -5304,7 +5304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4904931684561271030, guid: 32005e7dd03778b48bf6de1a4b95bca8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.693
+      value: 1.08
       objectReference: {fileID: 0}
     - target: {fileID: 4904931684561271030, guid: 32005e7dd03778b48bf6de1a4b95bca8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5414,27 +5414,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 594261224772780075, guid: fee75534437446644b9df4bc0fc07e48, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 1.0737426e-20
+      value: 4.2949707e-22
       objectReference: {fileID: 0}
     - target: {fileID: 594261224772780075, guid: fee75534437446644b9df4bc0fc07e48, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 1.07374256e-17
+      value: 4.2949704e-19
       objectReference: {fileID: 0}
     - target: {fileID: 4601981374779261613, guid: fee75534437446644b9df4bc0fc07e48, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 1.0737426e-20
+      value: 4.2949707e-22
       objectReference: {fileID: 0}
     - target: {fileID: 4601981374779261613, guid: fee75534437446644b9df4bc0fc07e48, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 1.07374256e-17
+      value: 4.2949704e-19
       objectReference: {fileID: 0}
     - target: {fileID: 6205310616911146798, guid: fee75534437446644b9df4bc0fc07e48, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 5.368713e-20
+      value: 2.1474853e-21
       objectReference: {fileID: 0}
     - target: {fileID: 6205310616911146798, guid: fee75534437446644b9df4bc0fc07e48, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 1.6106138e-18
+      value: 6.4424555e-20
       objectReference: {fileID: 0}
     - target: {fileID: 7842238887061591019, guid: fee75534437446644b9df4bc0fc07e48, type: 3}
       propertyPath: m_Name
@@ -5482,11 +5482,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8242502817027216496, guid: fee75534437446644b9df4bc0fc07e48, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 4.2949705e-20
+      value: 1.7179883e-21
       objectReference: {fileID: 0}
     - target: {fileID: 8242502817027216496, guid: fee75534437446644b9df4bc0fc07e48, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 1.6106138e-17
+      value: 6.4424554e-19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
