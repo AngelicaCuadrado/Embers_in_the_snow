@@ -112,12 +112,12 @@ Material:
     - _DstBlendAlpha: 0
     - _EdgeSoftness: 1
     - _EnvironmentReflections: 1
-    - _FrostIntensity: 0.081
+    - _FrostIntensity: 0.15
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _NoiseScale: 16.52
+    - _NoiseScale: 20
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0

@@ -14,6 +14,7 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
     [SerializeField] private Collider physicalCollider;
     [SerializeField] private Bonfire bonfire;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private GameObject flameEffect;
 
 
     [SerializeField, Tooltip("The unique key for this object in the pool")] private string poolKey = "Torch";
@@ -40,6 +41,7 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
 
         torchLight.enabled = false;
         lightTrigger.enabled = false;
+        flameEffect.SetActive(false);
 
         // Freeze physics so it stays suspended
         rb.isKinematic = true;
@@ -89,6 +91,7 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
 
         torchLight.enabled = true;
         lightTrigger.enabled = true;
+        flameEffect.SetActive(true);
 
         UpdateLightRadius();
 
@@ -110,10 +113,10 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
 
     private void PutOut()
     {
-        print("Torch put out");
         isActive = false;
         torchLight.enabled = false;
         lightTrigger.enabled = false;
+        flameEffect.SetActive(false);
 
         OnTorchPutOut?.Invoke();
 

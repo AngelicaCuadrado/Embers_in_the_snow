@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2281674606131847193}
   - component: {fileID: 7141538442704238729}
   - component: {fileID: 386630626097982043}
+  - component: {fileID: 5554233848523784488}
+  - component: {fileID: 363741691854053673}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -27,11 +29,11 @@ Transform:
   m_GameObject: {fileID: 1286516709291384564}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.66700006, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.6670001, z: 0}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2490372657439398749}
+  m_Father: {fileID: 2605865350836381325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &7141538442704238729
 Light:
@@ -127,6 +129,50 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 4294967295
   m_ShadowRenderingLayers: 1
+--- !u!135 &5554233848523784488
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286516709291384564}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &363741691854053673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286516709291384564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cff3db17d27ffd4cae86b75cf94b574, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CampfireController
+  fireLight: {fileID: 7141538442704238729}
+  maxFuel: 100
+  currentFuel: 50
+  minBurnRate: 0.5
+  maxBurnRate: 3
+  minIntensity: 1
+  maxIntensity: 200
+  minRange: 2
+  maxRange: 80
+  flickerSpeed: 4
+  flickerAmount: 0.3
 --- !u!1 &3165218432973454107
 GameObject:
   m_ObjectHideFlags: 0
@@ -5129,7 +5175,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2281674606131847193}
   - {fileID: 7895487081697726960}
   - {fileID: 711383472948887869}
   - {fileID: 4180219680967759047}
@@ -5273,7 +5318,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2281674606131847193}
   - {fileID: 2173283499633350166}
+  - {fileID: 6303978456688685433}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3928452895624277498
@@ -5292,10 +5339,12 @@ MonoBehaviour:
   lightRadius: 5
   burnRate: 1
   player: {fileID: 0}
-  bonfireLight: {fileID: 7141538442704238729}
   lightTrigger: {fileID: 2692333895767298198}
   physicalCollider: {fileID: 7727390535651868390}
   torchPrefab: {fileID: 7842238887061591019, guid: fee75534437446644b9df4bc0fc07e48, type: 3}
+  torchSpawn: {fileID: 6303978456688685433}
+  campfireController: {fileID: 363741691854053673}
+  fireEffect: {fileID: 5519201739466502230}
 --- !u!135 &2692333895767298198
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10245,6 +10294,37 @@ LODGroup:
     renderers:
     - renderer: {fileID: 394594879055582921}
   m_Enabled: 1
+--- !u!1 &8371427404151512308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6303978456688685433}
+  m_Layer: 0
+  m_Name: TorchSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6303978456688685433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8371427404151512308}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2605865350836381325}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8613510812456304738
 GameObject:
   m_ObjectHideFlags: 0

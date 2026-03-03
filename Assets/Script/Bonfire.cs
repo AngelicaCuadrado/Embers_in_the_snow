@@ -8,10 +8,15 @@ public class Bonfire : MonoBehaviour
 
     [Header("References")]
     [SerializeField, Tooltip("")] private PlayerController player;
-    [SerializeField, Tooltip("")] private Light bonfireLight;
     [SerializeField, Tooltip("")] private SphereCollider lightTrigger;
     [SerializeField, Tooltip("")] private Collider physicalCollider;
     [SerializeField, Tooltip("")] private GameObject torchPrefab;
+    [SerializeField, Tooltip("")] private Transform torchSpawn;
+    [SerializeField, Tooltip("")] private CampfireController campfireController;
+    [SerializeField, Tooltip("")] private GameObject fireEffect;
+
+
+
 
     private void Start()
     {
@@ -34,16 +39,17 @@ public class Bonfire : MonoBehaviour
         else
         {
             fuelAmount = 0f;
-            bonfireLight.enabled = false;
             lightTrigger.enabled = false;
+            if (fireEffect != null) fireEffect.SetActive(false);
         }
     }
 
     public void AddFuel(float amount)
     {
         fuelAmount += amount;
-        bonfireLight.enabled = true;
+        campfireController.AddFuel(amount);
         lightTrigger.enabled = true;
+        if (fireEffect != null) fireEffect.SetActive(true);
         UpdateLightRadius();
     }
 
@@ -57,14 +63,13 @@ public class Bonfire : MonoBehaviour
     {
         // Light radius scales with fuel amount
         lightRadius = Mathf.Clamp(fuelAmount * 0.05f, 0f, 10f);
-        bonfireLight.range = lightRadius;
         lightTrigger.radius = lightRadius;
     }
 
     public void SpawnTorch()
     {
         print("Spawning torch from bonfire");
-        GameObject torch = Instantiate(torchPrefab, transform.position + Vector3.up * 1.5f, Quaternion.identity);
+        GameObject torch = Instantiate(torchPrefab, torchSpawn.position, Quaternion.identity);
         if (torch.TryGetComponent<Torch>(out var torchComponent))
         {
             torchComponent.Bonfire = this;

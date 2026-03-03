@@ -6,7 +6,6 @@ public class CampfireController : MonoBehaviour
 {
     [Header("References")]
     public Light fireLight;
-    private SphereCollider heatTrigger;
 
     [Header("Fuel Management")]
     public float maxFuel = 100f;
@@ -34,9 +33,6 @@ public class CampfireController : MonoBehaviour
     {
         if (fireLight == null) fireLight = GetComponent<Light>();
 
-        heatTrigger = GetComponent<SphereCollider>();
-        heatTrigger.isTrigger = true; // Make sure it's a trigger!
-
         _noiseOffset = UnityEngine.Random.Range(0f, 100f);
     }
 
@@ -63,9 +59,6 @@ public class CampfireController : MonoBehaviour
 
         fireLight.intensity = targetIntensity * flickerModifier;
         fireLight.range = targetRange * Mathf.Lerp(1f, flickerModifier, 0.5f);
-
-        // OPTIMIZATION: Physically shrink the trigger radius as the fire dies
-        heatTrigger.radius = targetRange;
     }
 
     private void ExtinguishFire()
@@ -74,7 +67,6 @@ public class CampfireController : MonoBehaviour
         currentFuel = 0f;
         fireLight.intensity = 0f;
         fireLight.range = 0f;
-        heatTrigger.enabled = false; // Turn off the heat zone
 
         // Broadcast the event to the player (or anyone else listening)
         OnFireExtinguished?.Invoke(this);
@@ -86,7 +78,6 @@ public class CampfireController : MonoBehaviour
         if (!_isBurning && currentFuel > 0)
         {
             _isBurning = true;
-            heatTrigger.enabled = true;
         }
     }
 }

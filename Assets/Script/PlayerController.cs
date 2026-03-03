@@ -5,7 +5,16 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance { get; private set; }
 
     [Header("Light Tracking")]
-    [SerializeField,Tooltip("")] private int LightSources = 0;
+    [SerializeField,Tooltip("")] private int lightSources = 0;
+
+    public int LightSources
+    {
+        get => lightSources;
+        private set
+        {
+            lightSources = value;
+        }
+    }
 
     private void Awake()
     {
