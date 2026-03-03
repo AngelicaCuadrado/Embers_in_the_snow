@@ -25,15 +25,16 @@ Material:
     m_TexEnvs:
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 5925e5dc696c1ae4cb0d670ce5c13c53, type: 3}
-        m_Scale: {x: 100, y: 60}
+        m_Scale: {x: 300, y: 300}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CrackPower: 5.97
-    - _Metallic: 0.678
-    - _PulseMin: 1
-    - _PulseSpeed: 0
-    - _Smoothness: 0.674
+    - _CrackPower: 2.15
+    - _CrackThreshold: 0.739
+    - _Metallic: 0.518
+    - _PulseMin: 0.917
+    - _PulseSpeed: 4.72
+    - _Smoothness: 0.33
     m_Colors:
     - _BaseColor: {r: 0.054388523, g: 0.55325097, b: 0.69182384, a: 1}
     - _EmissionColor: {r: 0, g: 2, b: 2, a: 1}
