@@ -2319,6 +2319,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FX_Snow
       objectReference: {fileID: 0}
+    - target: {fileID: 4333400457669886085, guid: 9c3876005a4a71842bec3267f0b877ac, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 7039079414255389365, guid: 9c3876005a4a71842bec3267f0b877ac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
