@@ -10,8 +10,6 @@ public class CampfireController : MonoBehaviour
     [Header("Light Intensity & Range")]
     public float minIntensity = 1f;
     public float maxIntensity = 10f;
-    public float minRange = 2f;
-    public float maxRange = 10f;
 
     [Header("Flicker Settings")]
     public float flickerSpeed = 4f;
@@ -52,7 +50,7 @@ public class CampfireController : MonoBehaviour
         float fuelRatio = Mathf.Clamp01(bonfire.FuelAmount / 100f);
         // Visuals
         float targetIntensity = Mathf.Lerp(minIntensity, maxIntensity, fuelRatio);
-        float targetRange = Mathf.Lerp(minRange, maxRange, fuelRatio);
+        float targetRange = bonfire.LightRadius * 3;
 
         // Flicker
         float noise = Mathf.PerlinNoise(Time.time * flickerSpeed, _noiseOffset);

@@ -7,7 +7,6 @@ public class Bonfire : MonoBehaviour
     [SerializeField, Tooltip("")] private float burnRate = 1f;
 
     [Header("References")]
-    [SerializeField, Tooltip("")] private PlayerController player;
     [SerializeField, Tooltip("")] private SphereCollider lightTrigger;
     [SerializeField, Tooltip("")] private Collider physicalCollider;
     [SerializeField, Tooltip("")] private GameObject torchPrefab;
@@ -85,7 +84,7 @@ public class Bonfire : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (player != null) player.AddLightSource();
+            if (PlayerController.Instance != null) PlayerController.Instance.AddLightSource();
         }
     }
 
@@ -93,7 +92,7 @@ public class Bonfire : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (player != null) player.RemoveLightSource();
+            if (PlayerController.Instance != null) PlayerController.Instance.RemoveLightSource();
         }
     }
 

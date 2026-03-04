@@ -45,8 +45,8 @@ Light:
   serializedVersion: 12
   m_Type: 2
   m_Color: {r: 1, g: 0.33333334, b: 0, a: 1}
-  m_Intensity: 1
-  m_Range: 5
+  m_Intensity: 200
+  m_Range: 15
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize2D: {x: 10, y: 10}
@@ -144,8 +144,6 @@ MonoBehaviour:
   bonfire: {fileID: 3928452895624277498}
   minIntensity: 1
   maxIntensity: 200
-  minRange: 2
-  maxRange: 80
   flickerSpeed: 4
   flickerAmount: 0.3
 --- !u!1 &3165218432973454107
@@ -5314,7 +5312,6 @@ MonoBehaviour:
   fuelAmount: 100
   lightRadius: 5
   burnRate: 1
-  player: {fileID: 0}
   lightTrigger: {fileID: 2692333895767298198}
   physicalCollider: {fileID: 7727390535651868390}
   torchPrefab: {fileID: 7842238887061591019, guid: fee75534437446644b9df4bc0fc07e48, type: 3}
