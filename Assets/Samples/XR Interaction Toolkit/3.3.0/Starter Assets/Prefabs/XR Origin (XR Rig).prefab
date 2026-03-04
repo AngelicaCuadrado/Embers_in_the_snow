@@ -414,12 +414,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1767192434}
+  - component: {fileID: 7349727158896388773}
   - component: {fileID: 1767192439}
   - component: {fileID: 1767192437}
   - component: {fileID: 6232745470614056083}
   - component: {fileID: 7537250554189092429}
   - component: {fileID: 4442959017658010188}
-  - component: {fileID: 7349727158896388773}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -442,6 +442,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1680501587}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7349727158896388773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767192433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4606111937c065e4d86c11bba0dced09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FootstepDiscrete
+  xrOrigin: {fileID: 1717954561962503726}
+  speedThreshold: 0.05
+  stopDelay: 0.15
 --- !u!20 &1767192439
 Camera:
   m_ObjectHideFlags: 0
@@ -743,21 +758,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7349727158896388773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1767192433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4606111937c065e4d86c11bba0dced09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FootstepDiscrete
-  xrOrigin: {fileID: 1717954561962503726}
-  speedThreshold: 0.05
-  stopDelay: 0.15
 --- !u!1 &58445280694286476
 GameObject:
   m_ObjectHideFlags: 0
