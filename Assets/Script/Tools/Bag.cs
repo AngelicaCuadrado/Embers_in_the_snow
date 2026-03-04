@@ -15,7 +15,7 @@ public class Bag : MonoBehaviour
 
     private Queue<IBaggable> items = new Queue<IBaggable>();
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         // Find the IBaggable on the collider or any parent
         IBaggable baggable = other.GetComponent<IBaggable>() ?? other.GetComponentInParent<IBaggable>();
