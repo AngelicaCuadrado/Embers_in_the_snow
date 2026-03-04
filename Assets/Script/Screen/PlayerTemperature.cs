@@ -9,8 +9,9 @@ public class PlayerTemperature : MonoBehaviour
     [Header("Temperature Settings")]
     public float freezeSpeed = 0.15f;
     public float thawSpeed = 0.4f;
-    [SerializeField, Tooltip("")] private float maxFrostThreshold = 0.7f;
-    [SerializeField, Tooltip("")] private float _currentFrostLevel = 0f;
+    [SerializeField, Tooltip("")] private float maxFrostThreshold = 5f;
+
+    private float _currentFrostLevel = 0f;
 
 
     void Update()

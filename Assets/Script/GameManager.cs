@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     public void Losegame()
     {
         Debug.Log("Game Over! You froze to death.");
-        SceneManager.LoadScene("Lose_Menu");
+        SceneManager.LoadScene("Lose_menu");
         PauseGame();
     }
     public void WinGame()
