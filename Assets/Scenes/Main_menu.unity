@@ -3952,7 +3952,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CampfireController
   fireLight: {fileID: 903154746}
-  bonfire: {fileID: 0}
+  maxFuel: 100
+  currentFuel: 50
+  minBurnRate: 0.5
+  maxBurnRate: 3
   minIntensity: 1
   maxIntensity: 200
   minRange: 2

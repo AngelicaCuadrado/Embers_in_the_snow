@@ -8,7 +8,7 @@ public class Bag : MonoBehaviour
 {
     [Header("Bag Settings")]
     [SerializeField, Tooltip("")] private float maxWeight = 12f;
-    [SerializeField, Tooltip("")] private float currentWeight = 0f;
+    private float currentWeight = 0f;
 
     [Header("References")]
     [SerializeField, Tooltip("")] private Transform itemSpawnPoint;
@@ -17,54 +17,29 @@ public class Bag : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Find the IBaggable on the collider or any parent
+        // Get the IBaggable component from the collided object or its parent
         IBaggable baggable = other.GetComponent<IBaggable>() ?? other.GetComponentInParent<IBaggable>();
-        if (baggable == null)
-        {
-            Debug.Log($"Bag: collided object is not baggable: {other.name}");
-            return;
-        }
-
-        // We need the MonoBehaviour root so we can return the whole GameObject to the pool
-        var baggableMB = baggable as MonoBehaviour;
-        if (baggableMB == null)
-        {
-            Debug.LogWarning("Bag: IBaggable is not a MonoBehaviour (unexpected).");
-            return;
-        }
-
-        Debug.Log($"Bag: found baggable {baggableMB.gameObject.name} (IsHeld={baggable.IsHeld}, weight={baggable.Weight})");
+        if (baggable == null) return;
 
         // Ignore items currently held
         if (baggable.IsHeld)
-        {
-            Debug.Log("Bag: item is currently held, ignoring.");
             return;
-        }
 
         float weight = baggable.Weight;
 
         // Ignore if adding this item exceeds max weight
         if (currentWeight + weight > maxWeight)
-        {
-            Debug.Log("Bag: would exceed max weight, ignoring.");
             return;
-        }
 
-        // Enqueue the interface reference (you can switch to a lightweight struct if preferred)
         items.Enqueue(baggable);
         currentWeight += weight;
-        Debug.Log($"Bag: accepted {baggableMB.gameObject.name}. currentWeight={currentWeight}");
 
-        // Return the root item to the pool (use the MonoBehaviour's GameObject)
-        var poolable = baggableMB.GetComponent<IPoolable>() ?? baggableMB.GetComponentInParent<IPoolable>();
+        var poolable = other.GetComponent<IPoolable>();
         if (poolable != null)
         {
-            ItemManager.Instance.ReturnToPool(baggableMB.gameObject, poolable.PoolKey);
-            Debug.Log("Bag: returned to pool: " + poolable.PoolKey);
+            ItemManager.Instance.ReturnToPool(other.gameObject, poolable.PoolKey);
         }
     }
-
 
     public void Interact(XRBaseInteractor interactor)
     {
