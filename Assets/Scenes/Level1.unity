@@ -8220,7 +8220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerTemperature
   frostMaterial: {fileID: 2100000, guid: aeb89144e46db4e4d8f8be196804d784, type: 2}
-  freezeSpeed: 0.06
+  freezeSpeed: 0.03
   thawSpeed: 0.2
   maxFrostThreshold: 0.6
   _currentFrostLevel: 0
