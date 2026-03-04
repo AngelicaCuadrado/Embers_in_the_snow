@@ -15,7 +15,9 @@ public class Bonfire : MonoBehaviour
     [SerializeField, Tooltip("")] private CampfireController campfireController;
     [SerializeField, Tooltip("")] private GameObject fireEffect;
 
-
+    public float FuelAmount => fuelAmount;
+    public float LightRadius => lightRadius;
+    public float BurnRate => burnRate;
 
 
     private void Start()

@@ -1,17 +1,11 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCollider))]
 public class CampfireController : MonoBehaviour
 {
     [Header("References")]
     public Light fireLight;
-
-    [Header("Fuel Management")]
-    public float maxFuel = 100f;
-    public float currentFuel = 50f;
-    public float minBurnRate = 0.5f;
-    public float maxBurnRate = 3.0f;
+    [SerializeField, Tooltip("")] private Bonfire bonfire;
 
     [Header("Light Intensity & Range")]
     public float minIntensity = 1f;
@@ -34,26 +28,31 @@ public class CampfireController : MonoBehaviour
         if (fireLight == null) fireLight = GetComponent<Light>();
 
         _noiseOffset = UnityEngine.Random.Range(0f, 100f);
+
+        UpdateVisuals();
     }
 
     void Update()
     {
         if (!_isBurning) return;
 
-        if (currentFuel <= 0)
+        if (bonfire.FuelAmount <= 0)
         {
             ExtinguishFire();
             return;
         }
 
-        float fuelRatio = currentFuel / maxFuel;
+        UpdateVisuals();
+    }
 
-        // Consume Fuel
-        currentFuel -= Mathf.Lerp(minBurnRate, maxBurnRate, fuelRatio) * Time.deltaTime;
-
+    private void UpdateVisuals()
+    {
+        float fuelRatio = Mathf.Clamp01(bonfire.FuelAmount / 100f);
         // Visuals
         float targetIntensity = Mathf.Lerp(minIntensity, maxIntensity, fuelRatio);
         float targetRange = Mathf.Lerp(minRange, maxRange, fuelRatio);
+
+        // Flicker
         float noise = Mathf.PerlinNoise(Time.time * flickerSpeed, _noiseOffset);
         float flickerModifier = Mathf.Lerp(1f - flickerAmount, 1f + flickerAmount, noise);
 
@@ -64,7 +63,7 @@ public class CampfireController : MonoBehaviour
     private void ExtinguishFire()
     {
         _isBurning = false;
-        currentFuel = 0f;
+
         fireLight.intensity = 0f;
         fireLight.range = 0f;
 
@@ -74,10 +73,22 @@ public class CampfireController : MonoBehaviour
 
     public void AddFuel(float amount)
     {
-        currentFuel = Mathf.Clamp(currentFuel + amount, 0f, maxFuel);
-        if (!_isBurning && currentFuel > 0)
+        if (bonfire.FuelAmount > 0)
         {
             _isBurning = true;
+            UpdateVisuals();
+        }
+    }
+
+    public void RemoveFuel(float amount)
+    {
+        if (bonfire.FuelAmount <= 0)
+        {
+            ExtinguishFire();
+        }
+        else
+        {
+            UpdateVisuals();
         }
     }
 
