@@ -327,6 +327,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b54b25bb8c1d4543983d4c5d72783c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  gameTimer: 0
+  gameDuration: 300
+  gamePaused: 0
 --- !u!4 &43374027 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4996260464553334, guid: c993c73f4d46bd44f8da39688b7e9250, type: 3}
@@ -3949,10 +3952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CampfireController
   fireLight: {fileID: 903154746}
-  maxFuel: 100
-  currentFuel: 10
-  minBurnRate: 0.5
-  maxBurnRate: 3
+  bonfire: {fileID: 0}
   minIntensity: 1
   maxIntensity: 200
   minRange: 2
@@ -7995,11 +7995,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2371709515516971763, guid: 622843aa66285894c84c129e37af9e7c, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.0019214383
+      value: 0.000005284068
       objectReference: {fileID: 0}
     - target: {fileID: 2371709515516971763, guid: 622843aa66285894c84c129e37af9e7c, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 5.7643147
+      value: 0.015852202
       objectReference: {fileID: 0}
     - target: {fileID: 2371709515516971763, guid: 622843aa66285894c84c129e37af9e7c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -8071,11 +8071,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4315376957771774096, guid: 622843aa66285894c84c129e37af9e7c, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.0024017978
+      value: 0.0000066050848
       objectReference: {fileID: 0}
     - target: {fileID: 4315376957771774096, guid: 622843aa66285894c84c129e37af9e7c, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 0.5764315
+      value: 0.0015852203
       objectReference: {fileID: 0}
     - target: {fileID: 4315376957771774096, guid: 622843aa66285894c84c129e37af9e7c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -8095,11 +8095,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5956562008005434737, guid: 622843aa66285894c84c129e37af9e7c, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.00048035957
+      value: 0.000001321017
       objectReference: {fileID: 0}
     - target: {fileID: 5956562008005434737, guid: 622843aa66285894c84c129e37af9e7c, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 3.8428767
+      value: 0.010568135
       objectReference: {fileID: 0}
     - target: {fileID: 5956562008005434737, guid: 622843aa66285894c84c129e37af9e7c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -8139,11 +8139,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8285360127112545041, guid: 622843aa66285894c84c129e37af9e7c, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.00048035957
+      value: 0.000001321017
       objectReference: {fileID: 0}
     - target: {fileID: 8285360127112545041, guid: 622843aa66285894c84c129e37af9e7c, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 3.8428767
+      value: 0.010568135
       objectReference: {fileID: 0}
     - target: {fileID: 8285360127112545041, guid: 622843aa66285894c84c129e37af9e7c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b

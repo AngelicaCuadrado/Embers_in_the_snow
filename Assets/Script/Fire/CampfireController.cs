@@ -34,6 +34,7 @@ public class CampfireController : MonoBehaviour
 
     void Update()
     {
+        if (bonfire == null) return;
         if (!_isBurning) return;
 
         if (bonfire.FuelAmount <= 0)
@@ -47,6 +48,7 @@ public class CampfireController : MonoBehaviour
 
     private void UpdateVisuals()
     {
+        if (bonfire == null) return;
         float fuelRatio = Mathf.Clamp01(bonfire.FuelAmount / 100f);
         // Visuals
         float targetIntensity = Mathf.Lerp(minIntensity, maxIntensity, fuelRatio);
@@ -89,14 +91,6 @@ public class CampfireController : MonoBehaviour
         else
         {
             UpdateVisuals();
-        }
-    }
-
-    public void RemoveFuel(float amount) {
-        currentFuel = Mathf.Clamp(currentFuel - amount, 0f, maxFuel);
-        if (currentFuel <= 0)
-        {
-            ExtinguishFire();
         }
     }
 }
