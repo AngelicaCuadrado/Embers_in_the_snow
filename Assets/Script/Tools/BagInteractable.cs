@@ -1,15 +1,17 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class BagInteractable : MonoBehaviour
 {
     [SerializeField] private Bag bag;
 
-    private UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable interactable;
+    private XRSimpleInteractable interactable;
 
     private void Awake()
     {
-        interactable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>();
+        interactable = GetComponent<XRSimpleInteractable>();
 
         // Subscribe in code so we don't rely on the inspector wiring
         interactable.selectEntered.AddListener(OnSelectEntered);
@@ -27,7 +29,7 @@ public class BagInteractable : MonoBehaviour
     {
         if (bag == null) return;
 
-        if (args.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
+        if (args.interactorObject is XRBaseInteractor interactor)
         {
             bag.Interact(interactor);
         }

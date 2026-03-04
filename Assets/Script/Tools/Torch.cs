@@ -113,10 +113,10 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
 
     private void PutOut()
     {
-        isActive = false;
-        torchLight.enabled = false;
         lightTrigger.enabled = false;
+        torchLight.enabled = false;
         flameEffect.SetActive(false);
+        isActive = false;
 
         OnTorchPutOut?.Invoke();
 
