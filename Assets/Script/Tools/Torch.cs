@@ -68,7 +68,6 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
 
         if (fuelAmount <= 0f)
         {
-            print("Torch ran out of fuel");
             fuelAmount = 0f;
             PutOut();
         }
@@ -145,9 +144,7 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
 
     private void OnCollisionEnter(Collision collision)
     {
-        print("Torch collided with: " + collision.collider.name);
         if (!isActive || isHeld) return;
-        print("Torch is active and not held, processing collision");
 
         // Returned to bonfire
         if (collision.collider.CompareTag("Bonfire"))
@@ -166,5 +163,4 @@ public class Torch : MonoBehaviour, IBurnable, IPoolable
             PutOut();
         }
     }
-
 }

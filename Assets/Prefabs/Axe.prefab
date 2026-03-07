@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20849176d52970041b696f2cca4f6a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Axe
-  poolKey: Axe
   soundEffect: {fileID: 8300000, guid: f8491a6b6cdfe9847bfaaf21d2f83ceb, type: 3}
+  rb: {fileID: 5247588712431434055}
 --- !u!114 &9167703025099686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,7 +189,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8128507511915106293}
+        m_TargetAssemblyTypeName: Axe, Assembly-CSharp
+        m_MethodName: UnfreezePhysics
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []

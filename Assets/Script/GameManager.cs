@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
     {
         gamePaused = true;
         Time.timeScale = 0f; // Pause the game
-        Debug.Log("Game Paused.");
     }
     public void ResumeGame()
     {
@@ -52,19 +51,16 @@ public class GameManager : MonoBehaviour
         {
             gamePaused = false;
             Time.timeScale = 1f; // Resume the game
-            Debug.Log("Game Resumed.");
         }
     }
 
     public void Losegame()
     {
-        Debug.Log("Game Over! You froze to death.");
         SceneManager.LoadScene("Lose_menu");
         PauseGame();
     }
     public void WinGame()
     {
-        Debug.Log("Congratulations! You survived the night.");
         SceneManager.LoadScene("Win_menu");
         PauseGame();
     }
@@ -80,7 +76,6 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("Quitting the game...");
         Application.Quit();
     }
 }

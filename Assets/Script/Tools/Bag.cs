@@ -7,12 +7,14 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Bag : MonoBehaviour
 {
     [Header("Bag Settings")]
-    [SerializeField, Tooltip("")] private float maxWeight = 12f;
-    [SerializeField, Tooltip("")] private float currentWeight = 0f;
+    [SerializeField, Tooltip("The maximum weight the bag can hold")]
+    private float maxWeight = 12f;
+    [SerializeField, Tooltip("The current weight of items in the bag")]
+    private float currentWeight = 0f;
 
     [Header("References")]
-    [SerializeField, Tooltip("")] private Transform itemSpawnPoint;
-
+    [SerializeField, Tooltip("The point where items will be spawned when taken from the bag")]
+    private Transform itemSpawnPoint;
     private Queue<IBaggable> items = new Queue<IBaggable>();
 
     private void OnTriggerStay(Collider other)
@@ -21,7 +23,6 @@ public class Bag : MonoBehaviour
         IBaggable baggable = other.GetComponent<IBaggable>() ?? other.GetComponentInParent<IBaggable>();
         if (baggable == null)
         {
-            Debug.Log($"Bag: collided object is not baggable: {other.name}");
             return;
         }
 
@@ -29,16 +30,13 @@ public class Bag : MonoBehaviour
         var baggableMB = baggable as MonoBehaviour;
         if (baggableMB == null)
         {
-            Debug.LogWarning("Bag: IBaggable is not a MonoBehaviour (unexpected).");
             return;
         }
 
-        Debug.Log($"Bag: found baggable {baggableMB.gameObject.name} (IsHeld={baggable.IsHeld}, weight={baggable.Weight})");
 
         // Ignore items currently held
         if (baggable.IsHeld)
         {
-            Debug.Log("Bag: item is currently held, ignoring.");
             return;
         }
 
@@ -47,21 +45,18 @@ public class Bag : MonoBehaviour
         // Ignore if adding this item exceeds max weight
         if (currentWeight + weight > maxWeight)
         {
-            Debug.Log("Bag: would exceed max weight, ignoring.");
             return;
         }
 
         // Enqueue the interface reference (you can switch to a lightweight struct if preferred)
         items.Enqueue(baggable);
         currentWeight += weight;
-        Debug.Log($"Bag: accepted {baggableMB.gameObject.name}. currentWeight={currentWeight}");
 
         // Return the root item to the pool (use the MonoBehaviour's GameObject)
         var poolable = baggableMB.GetComponent<IPoolable>() ?? baggableMB.GetComponentInParent<IPoolable>();
         if (poolable != null)
         {
             ItemManager.Instance.ReturnToPool(baggableMB.gameObject, poolable.PoolKey);
-            Debug.Log("Bag: returned to pool: " + poolable.PoolKey);
         }
     }
 
