@@ -19877,7 +19877,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Torch
   maxFuel: 50
   burnRate: 1
-  lightRadius: 3
+  lightRadius: 10
   torchLight: {fileID: 398016430616468121}
   lightTrigger: {fileID: 4072508846036598725}
   physicalCollider: {fileID: 1302742179687610778}

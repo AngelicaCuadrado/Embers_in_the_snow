@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class Axe : MonoBehaviour
 {
-    [SerializeField, Tooltip("")] private string poolKey = "Axe";
-    [SerializeField, Tooltip("")] private AudioClip soundEffect;
-
+    [SerializeField, Tooltip("The key used to identify this axe in the object pool")]
+    private string poolKey = "Axe";
+    [SerializeField, Tooltip("The sound effect played when the axe hits a log")]
+    private AudioClip soundEffect;
 
     public string PoolKey { get => poolKey; set => poolKey = value; }
 
